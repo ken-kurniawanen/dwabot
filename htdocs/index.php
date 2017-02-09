@@ -152,9 +152,9 @@ $dirtyWords=array(
 			{    
             foreach ($dirtyWords as $dirtyWord) {
                 if (preg_match($dirtyWord, $event['message']['text'])) {
-                    $result = $bot->replyText($event['replyToken'], "Astaghfirullahaladzim, jangan berkata kotor :(");
+                 //   $result = $bot->replyText($event['replyToken'], "Astaghfirullahaladzim, jangan berkata kotor :(");
                     $stickerMessageBuilder = new \LINE\LINEbot\MessageBuilder\StickerMessageBuilder('2','152');
-                    $rp = $bot->pushMessage($event['source']['userId'], $stickerMessageBuilder);
+                    $result = $bot->pushMessage($event['source']['userId'], $stickerMessageBuilder);
                 }
                 
                 
@@ -178,7 +178,7 @@ $dirtyWords=array(
                 //$pm = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
 				
 				return $result->getHTTPStatus() . ' ' . $result->getRawBody();
-                return $rp->getHTTPStatus() . ' ' . $rp->getRawBody();
+               // return $rp->getHTTPStatus() . ' ' . $rp->getRawBody();
                 //return $pm->getHTTPStatus() . ' ' . $pm->getRawBody();
 			}
 		}
