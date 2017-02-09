@@ -50,6 +50,7 @@ $app->post('/', function ($request, $response)
                         
     //dirty word
 $dirtyWords=array(
+'/\ba+([^a-z])*n+([^a-z])*j+([^a-z])*e+([^a-z])*n+([^a-z])*g+\b/i',//anjeng
 '/\ba+([^a-z])*s+([^a-z])*s+\b/i',//ass
 '/\ba+([^a-z])*s+([^a-z])*s+([^a-z])*h+([^a-z])*o+([^a-z])*l+([^a-z])*e+\b/i',//asshole
 '/\ba+([^a-z])*s+([^a-z])*s+([^a-z])*h+([^a-z])*a+([^a-z])*t+\b/i',//asshat
@@ -78,6 +79,8 @@ $dirtyWords=array(
 '/\bd+([^a-z])*i+([^a-z])*c+([^a-z])*k+\b/i',//dick
 '/\bd+([^a-z])*i+([^a-z])*c+([^a-z])*k+([^a-z])*h+([^a-z])*e+([^a-z])*a+([^a-z])*d+\b/i',//dickhead
 '/\bd+([^a-z])*o+([^a-z])*b+([^a-z])*o+([^a-z])*l+\b/i',//dobol
+'/\bf+([^a-z])*a+([^a-z])*g+\b/i',//fag
+'/\bf+([^a-z])*a+([^a-z])*g+([^a-z])*g+([^a-z])*o+([^a-z])*t+\b/i',//faggot
 '/\bf+([^a-z])*u+([^a-z])*c+([^a-z])*k+\b/i',//fuck
 '/\bf+([^a-z])*u+([^a-z])*c+([^a-z])*k+([^a-z])*e+([^a-z])*d+\b/i',//fucked
 '/\bf+([^a-z])*u+([^a-z])*c+([^a-z])*k+([^a-z])*e+([^a-z])*r+\b/i',//fucker
@@ -88,13 +91,17 @@ $dirtyWords=array(
 '/\bj+([^a-z])*a+([^a-z])*n+([^a-z])*c+([^a-z])*o+([^a-z])*k+\b/i',//jancok
 '/\bj+([^a-z])*a+([^a-z])*n+([^a-z])*c+([^a-z])*u+([^a-z])*k+\b/i',//jancuk
 '/\bj+([^a-z])*e+([^a-z])*m+([^a-z])*b+([^a-z])*u+([^a-z])*t+\b/i',//jembut
+'/\bj+([^a-z])*e+([^a-z])*r+([^a-z])*k+\b/i',//jerk
+'/\bk+([^a-z])*a+([^a-z])*m+([^a-z])*p+([^a-z])*a+([^a-z])*n+([^a-z])*g+\b/i',//kampang
 '/\bk+([^a-z])*a+([^a-z])*m+([^a-z])*p+([^a-z])*r+([^a-z])*e+([^a-z])*t+\b/i',//kampret
 '/\bk+([^a-z])*e+([^a-z])*n+([^a-z])*t+([^a-z])*u+\b/i',//kentu
 '/\bk+([^a-z])*e+([^a-z])*n+([^a-z])*t+([^a-z])*o+([^a-z])*t+\b/i',//kentot
 '/\bk+([^a-z])*i+([^a-z])*m+([^a-z])*c+([^a-z])*i+([^a-z])*l+\b/i',//kimcil
+'/\bk+([^a-z])*i+([^a-z])*m+([^a-z])*a+([^a-z])*k+\b/i',//kimak
 '/\bk+([^a-z])*o+([^a-z])*n+([^a-z])*t+([^a-z])*o+([^a-z])*l+\b/i',//kontol
 '/\bk+([^a-z])*o+([^a-z])*t+([^a-z])*o+([^a-z])*r+\b/i',//kotor
 '/\bk+([^a-z])*u+([^a-z])*n+([^a-z])*y+([^a-z])*u+([^a-z])*k+\b/i',//kunyuk
+'/\bl+([^a-z])*a+([^a-z])*h+([^a-z])*o+([^a-z])*r+\b/i',//lahor
 '/\bm+([^a-z])*e+([^a-z])*k+([^a-z])*i+\b/i',//meki
 '/\bm+([^a-z])*e+([^a-z])*m+([^a-z])*e+([^a-z])*k+\b/i',//memek
 '/\bm+([^a-z])*o+([^a-z])*t+([^a-z])*h+([^a-z])*e+([^a-z])*r+([^a-z])*f+([^a-z])*u+([^a-z])*c+([^a-z])*k+([^a-z])*e+([^a-z])*r+\b/i',//motherfucker
@@ -108,6 +115,7 @@ $dirtyWords=array(
 '/\bn+([^a-z])*y+([^a-z])*i+([^a-z])*n+([^a-z])*g+\b/i',//nying
 '/\bp+([^a-z])*a+([^a-z])*n+([^a-z])*t+([^a-z])*e+([^a-z])*k+\b/i',//pantek
 '/\bp+([^a-z])*e+([^a-z])*c+([^a-z])*u+([^a-z])*n+\b/i',//pecun
+'/\bp+([^a-z])*e+([^a-z])*l+([^a-z])*e+([^a-z])*r+\b/i',//peler
 '/\bp+([^a-z])*e+([^a-z])*l+([^a-z])*i+\b/i',//peli
 '/\bp+([^a-z])*e+([^a-z])*r+([^a-z])*e+([^a-z])*k+\b/i',//perek
 '/\bp+([^a-z])*u+([^a-z])*k+([^a-z])*i+\b/i',//puki
@@ -124,6 +132,7 @@ $dirtyWords=array(
 '/\bt+([^a-z])*a+([^a-z])*i+([^a-z])*k+\b/i',//taik
 '/\bt+([^a-z])*a+([^a-z])*h+([^a-z])*i+\b/i',//tahi
 '/\bt+([^a-z])*e+([^a-z])*m+([^a-z])*p+([^a-z])*i+([^a-z])*k+\b/i',//tempik
+'/\bt+([^a-z])*a+([^a-z])*n+([^a-z])*g+([^a-z])*i+([^a-z])*n+([^a-z])*a+\b/i',//tangina
 '/\bt+([^a-z])*i+([^a-z])*t+([^a-z])*s+\b/i',//tits
 '/\bt+([^a-z])*o+([^a-z])*k+([^a-z])*e+([^a-z])*t+\b/i',//toket
 '/\bt+([^a-z])*o+([^a-z])*l+([^a-z])*o+([^a-z])*l+\b/i',//tolol
@@ -144,6 +153,8 @@ $dirtyWords=array(
             foreach ($dirtyWords as $dirtyWord) {
                 if (preg_match($dirtyWord, $event['message']['text'])) {
                     $result = $bot->replyText($event['replyToken'], "Astaghfirullahaladzim, jangan berkata kotor");
+                    $stickerMessageBuilder = new \LINE\LINEbot\MessageBuilder\StickerMessageBuilder("2","152");
+                    $rp = $bot->pushMessage($event['source']['userId'], $stickerMessageBuilder);
                 }
                 
                 
@@ -167,7 +178,7 @@ $dirtyWords=array(
                 //$pm = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
 				
 				return $result->getHTTPStatus() . ' ' . $result->getRawBody();
-              //  return $rp->getHTTPStatus() . ' ' . $rp->getRawBody();
+                return $rp->getHTTPStatus() . ' ' . $rp->getRawBody();
                 //return $pm->getHTTPStatus() . ' ' . $pm->getRawBody();
 			}
 		}
