@@ -152,8 +152,8 @@ $dirtyWords=array(
 			{    
             foreach ($dirtyWords as $dirtyWord) {
                 if (preg_match($dirtyWord, $event['message']['text'])) {
-                    $result = $bot->replyText($event['replyToken'], "Astaghfirullahaladzim, jangan berkata kotor");
-                    $stickerMessageBuilder = new \LINE\LINEbot\MessageBuilder\StickerMessageBuilder("2","152");
+                    $result = $bot->replyText($event['replyToken'], "Astaghfirullahaladzim, jangan berkata kotor :(");
+                    $stickerMessageBuilder = new \LINE\LINEbot\MessageBuilder\StickerMessageBuilder('2','152');
                     $rp = $bot->pushMessage($event['source']['userId'], $stickerMessageBuilder);
                 }
                 
