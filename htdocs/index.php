@@ -153,7 +153,7 @@ $dirtyWords=array(
             foreach ($dirtyWords as $dirtyWord) {
                 if (preg_match($dirtyWord, $event['message']['text'])) {
                  //   $result = $bot->replyText($event['replyToken'], "Astaghfirullahaladzim, jangan berkata kotor :(");
-                    $stickerMessageBuilder = new \LINE\LINEbot\MessageBuilder\StickerMessageBuilder('2','152');
+                    $stickerMessageBuilder = new \LINE\LINEbot\MessageBuilder\StickerMessageBuilder('2','2');
                     $result = $bot->pushMessage($event['source']['userId'], $stickerMessageBuilder);
                 }
                 
@@ -161,7 +161,7 @@ $dirtyWords=array(
             //            if (stripos($event['message']['text'], $dirtyWord ) !== false) {
             //                $result = $bot->replyText($event['replyToken'], "Astaghfirullahaladzim, jangan berkata kotor");
             //            
-            //            $stickerMessageBuilder = new \LINE\LINEbot\MessageBuilder\StickerMessageBuilder("2","152");
+            //            $stickerMessageBuilder = new \LINE\LINEbot\MessageBuilder\StickerMessageBuilder("2","2");
             //            $rp = $bot->pushMessage($event['source']['userId'], $stickerMessageBuilder);
             //        //    $rp = $bot->pushMessage($event['source']['groupId'], $stickerMessageBuilder);
             //        //    $rp = $bot->pushMessage($event['source']['roomId'], $stickerMessageBuilder);    
@@ -170,10 +170,8 @@ $dirtyWords=array(
                 
                         
                 
-				// send same message as reply to user
 				//$result = $bot->replyText($event['replyToken'], $event['message']['text']);
 
-				// or we can use pushMessage() instead to send reply message
                 //$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("Tolong jangan gunakan kata kasar");
                 //$pm = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
 				
