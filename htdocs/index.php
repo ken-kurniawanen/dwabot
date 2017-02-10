@@ -256,9 +256,9 @@ $data = array(
 'tolol',
 'udik',
  	);
-
+ 	
  $f_separator = "/\b";
- $m_separator = "+([^a-z])";
+ $m_separator = "+(|[\s\S])";
  $e_separator = "+\b/i";
  $dirtyWords = array();
  	
