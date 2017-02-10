@@ -235,9 +235,9 @@ $data = array(
 		'udik',
  	);
  	
- $f_separator = "(/\b)";
+ $f_separator = "/\b";
  $m_separator = "+(|[\s\S])";
- $e_separator = "+(\b/i)";
+ $e_separator = "+\b/i";
  $dirtyWords = array();
  	
  foreach ($data as $key => $value){
