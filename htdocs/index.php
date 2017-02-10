@@ -155,84 +155,106 @@ $app->post('/', function ($request, $response)
 	Start Dirty Word Database
 */
 $data = array(
- 		'ass',
-		'asshole',
-		'asshat',
-		'asu',
-		'asuw',
-		'asyu',
-		'afu',
-		'bajingan',
-		'bangsat',
-		'bastard',
-		'bewb',
-		'bewbs',
-		'bitch',
-		'bolot',
-		'boob',
-		'boobs',
-		'brengsek',
-		'bylat',
-		'cuk',
-		'cunt',
-		'cocote',
-		'cocotmu',
-		'cok',
-		'cyka',
-		'dema',
-		'dick',
-		'dickhead',
-		'dobol',
-		'fuck',
-		'fucked',
-		'fucker',
-		'fuckhead',
-		'fucking',
-		'itil',
-		'jamput',
-		'jancok',
-		'jancuk',
-		'jembut',
-		'kampret',
-		'kentu',
-		'kentot',
-		'kimcil',
-		'kontol',
-		'kotor',
-		'kunyuk',
-		'meki',
-		'memek',
-		'motherfucker',
-		'motherfuckers',
-		'ndes',
-		'ndez',
-		'ngehe',
-		'ngentot',
-		'ngewe',
-		'njing',
-		'nying',
-		'pantek',
-		'pecun',
-		'peli',
-		'perek',
-		'puki',
-		'puta',
-		'putang',
-		'pussy',
-		'shit',
-		'shithead',
-		'shithole',
-		'shitty',
-		'tae',
-		'taek',
-		'tai',
-		'taik',
-		'tahi',
-		'tempik',
-		'tits',
-		'toket',
-		'tolol',
-		'udik',
+'anjeng',
+'ass',
+'asshole',
+'asshat',
+'asu',
+'asuw',
+'asyu',
+'afu',
+'bajingan',
+'bangsat',
+'bastard',
+'bewb',
+'bewbs',
+'bitch',
+'bolot',
+'boob',
+'boobs',
+'brengsek',
+'blyat',
+'cuk',
+'cuki',
+'cukimay',
+'cunt',
+'cocote',
+'cocotmu',
+'cok',
+'cyka',
+'dema',
+'dick',
+'dickhead',
+'dobol',
+'fag',
+'faggot',
+'fuck',
+'fucked',
+'fucker',
+'fuckhead',
+'fucking',
+'gago',
+'goblok',
+'goblog',
+'gobloq',
+'geblek',
+'itil',
+'jamput',
+'jancok',
+'jancuk',
+'jembut',
+'jerk',
+'kampang',
+'kampret',
+'kentu',
+'kentot',
+'kimcil',
+'kimak',
+'kontol',
+'kotor',
+'kunyuk',
+'lahor',
+'meki',
+'memek',
+'motherfucker',
+'motherfuckers',
+'ndes',
+'ndez',
+'ngehe',
+'ngentot',
+'ngewe',
+'njing',
+'nying',
+'pantek',
+'pecun',
+'peler',
+'peli',
+'peju',
+'pejuh',
+'perek',
+'puki',
+'pukimay',
+'puta',
+'putang',
+'pussy',
+'sange',
+'shit',
+'shithead',
+'shithole',
+'shitty',
+'tae',
+'taek',
+'tai',
+'taik',
+'tahi',
+'tempik',
+'tangina',
+'titit',
+'titid',
+'tits',
+'toket',
+'tolol',
+'udik',
  	);
 
  $f_separator = "/\b";
@@ -278,14 +300,6 @@ End Of Dirty Words Database
                 }
                 
                 
-            //            if (stripos($event['message']['text'], $dirtyWord ) !== false) {
-            //                $result = $bot->replyText($event['replyToken'], "Astaghfirullahaladzim, jangan berkata kotor");
-            //            
-            //            $stickerMessageBuilder = new \LINE\LINEbot\MessageBuilder\StickerMessageBuilder("2","2");
-            //            $rp = $bot->pushMessage($event['source']['userId'], $stickerMessageBuilder);
-            //        //    $rp = $bot->pushMessage($event['source']['groupId'], $stickerMessageBuilder);
-            //        //    $rp = $bot->pushMessage($event['source']['roomId'], $stickerMessageBuilder);    
-            //            }
                     }
                 
                         
@@ -296,24 +310,10 @@ End Of Dirty Words Database
                 //$pm = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
 				
 				return $result->getHTTPStatus() . ' ' . $result->getRawBody();
-               // return $rp->getHTTPStatus() . ' ' . $rp->getRawBody();
-                //return $pm->getHTTPStatus() . ' ' . $pm->getRawBody();
 			}
 		}
 	}
 
 });
 
-// $app->get('/push/{to}/{message}', function ($request, $response, $args)
-// {
-// 	$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
-// 	$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
-
-// 	$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($args['message']);
-// 	$result = $bot->pushMessage($args['to'], $textMessageBuilder);
-
-// 	return $result->getHTTPStatus() . ' ' . $result->getRawBody();
-// });
-
-/* JUST RUN IT */
 $app->run();
