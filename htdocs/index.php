@@ -155,7 +155,7 @@ $data = array(
  	);
  	
  $f_separator = "/\b";
- $m_separator = "+(|[\s\S])";
+ $m_separator = "+(|[^a-z])*";
  $e_separator = "+\b/i";
  $dirtyWords = array();
  	
