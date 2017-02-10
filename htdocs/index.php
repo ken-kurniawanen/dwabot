@@ -294,13 +294,14 @@ End Of Dirty Words Database
             
 			if($event['message']['type'] == 'text')
 			{    
-            foreach ($dirtyWords as $dirtyWord) {
-                if (preg_match($dirtyWord, $event['message']['text'])) {
-                    $result = $bot->replyText($event['replyToken'], "Astaghfirullahaladzim, jangan berkata kotor :(");
-                }
+        //    foreach ($dirtyWords as $dirtyWord) {
+        //        if (preg_match($dirtyWord, $event['message']['text'])) {
+        //            $result = $bot->replyText($event['replyToken'], "Astaghfirullahaladzim, jangan berkata kotor :(");
+        //        }
                 
-                
-                    }
+                				$result = $bot->replyText($event['replyToken'], $event['message']['text']);
+
+             //       }
                 
                         
                 
