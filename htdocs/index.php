@@ -257,8 +257,6 @@ $data = array(
  	$word = $word . $e_separator;
  	array_push($dirtyWords, $word);
  }
- 
- print_r($dirtyWords);
 
  /*
 End Of Dirty Words Database
