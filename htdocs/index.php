@@ -186,9 +186,14 @@ End Of Dirty Words Database
 	foreach ($data['events'] as $event){
         
         if (stripos($event['message']['text'], "bye dwabot") !== false) {
-            $response = $bot->replyText($event['replyToken'], "afu  bot");
-            
-            return $response->getHTTPStatus() . ' ' . $response->getRawBody();            
+            if ($event['source']['type'] == 'room') {
+                $response = $bot->leaveRoom($event['source']['roomId']);
+                return $response->getHTTPStatus() . ' ' . $response->getRawBody();  
+            }
+            elseif ($event['source']['type'] == 'group') {
+                $response = $bot->leaveGroup($event['source']['groupId']);
+                return $response->getHTTPStatus() . ' ' . $response->getRawBody();      
+            }        
         }
         
 		elseif ($event['type'] == 'message'){   
