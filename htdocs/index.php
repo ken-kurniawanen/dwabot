@@ -19,8 +19,7 @@ $app->get('/', function ($request, $response) {
 	return "Lanjutkan!";
 });
 
-$app->post('/', function ($request, $response)
-{
+$app->post('/', function ($request, $response) {
 	// get request body and line signature header
 	$body 	   = file_get_contents('php://input');
 	$signature = $_SERVER['HTTP_X_LINE_SIGNATURE'];
@@ -184,30 +183,22 @@ End Of Dirty Words Database
 	$data = json_decode($body, true);
     
    
-	foreach ($data['events'] as $event)
-	{
-		if ($event['type'] == 'message')
-		{   
+	foreach ($data['events'] as $event){
+		if ($event['type'] == 'message'){   
             
-			if($event['message']['type'] == 'text')
-			{    
-            foreach ($dirtyWords as $dirtyWord) {
-                if (preg_match($dirtyWord, $event['message']['text'])) {
-                    $result = $bot->replyText($event['replyToken'], "Astaghfirullahaladzim, jangan berkata kotor :(");
-                }
+			if($event['message']['type'] == 'text'){
                 
-                //				$result = $bot->replyText($event['replyToken'], $event['message']['text']);
-
+                foreach ($dirtyWords as $dirtyWord) {
+                    if (preg_match($dirtyWord, $event['message']['text'])) {
+                        $response = $bot->replyText($event['replyToken'], "Astaghfirullahaladzim, jangan berkata kotor :(");
                     }
+                }
                 
                         
                 
-				//$result = $bot->replyText($event['replyToken'], $event['message']['text']);
 
-                //$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("Tolong jangan gunakan kata kasar");
-                //$pm = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
 				
-				return $result->getHTTPStatus() . ' ' . $result->getRawBody();
+				return $response->getHTTPStatus() . ' ' . $response->getRawBody();
 			}
 		}
 	}
