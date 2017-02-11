@@ -198,13 +198,13 @@ End Of Dirty Words Database
         
         if (stripos($event['message']['text'], "about dwabot") !== false) {
             $response = $bot->replyText($event['replyToken'], 
-                                        "Dirty Word Alert Bot will scan any dirty word and its possible combination. Put me in your group or multichat and I will do the job.
-                                        /r/n
-                                        DWABot did not alert some 'word' or didn't work well? Please click 'Suggest Word & Bug Report'
-                                        Have an idea for future DWABot feature? please click 'Suggest Feature'
-                                        *via personal
-                                        /r/n
-                                        --DWABot v0.2-alpha--");
+"Dirty Word Alert Bot will scan any dirty word and its possible combination. Put me in your group or multichat and I will do the job.
+
+DWABot did not alert some 'word' or didn't work well? Please click 'Suggest Word & Bug Report'
+Have an idea for future DWABot feature? please click 'Suggest Feature'
+*via personal
+
+--DWABot v0.2-alpha--");
             return $response->getHTTPStatus() . ' ' . $response->getRawBody();          
         }
         
