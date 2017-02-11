@@ -184,7 +184,14 @@ End Of Dirty Words Database
     
    
 	foreach ($data['events'] as $event){
-		if ($event['type'] == 'message'){   
+        
+        if (preg_match('/bye dwabot/i', $event['message']['text']) {
+            $response = $bot->replyText($event['replyToken'], "afu  bot");
+            
+            return $response->getHTTPStatus() . ' ' . $response->getRawBody();            
+        }
+        
+		elseif ($event['type'] == 'message'){   
             
 			if($event['message']['type'] == 'text'){
                 
@@ -198,10 +205,6 @@ End Of Dirty Words Database
 			}
 		}
         
-            $response = $bot->replyText($event['replyToken'], "fuck you bot");
-            
-            return $response->getHTTPStatus() . ' ' . $response->getRawBody();            
-        }
         
         elseif ($event['type'] == 'join'){
             $response = $bot->replyText($event['replyToken'], "Thanks for inviting me, i will alert your dirty friend");
