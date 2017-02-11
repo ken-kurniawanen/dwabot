@@ -198,7 +198,6 @@ End Of Dirty Words Database
 			}
 		}
         
-        elseif (stripos($event['message']['text'], "bye dwabot") !== false) {
             $response = $bot->replyText($event['replyToken'], "fuck you bot");
             
             return $response->getHTTPStatus() . ' ' . $response->getRawBody();            
