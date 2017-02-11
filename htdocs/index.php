@@ -201,11 +201,12 @@ End Of Dirty Words Database
         elseif (stripos($event['message']['text'], "bye dwabot") !== false) {
             if ($event['source']['type'] == 'room') {
                     $response = $bot->leaveRoom($event['source']['roomId']);
+                    return $response->getHTTPStatus() . ' ' . $response->getRawBody();
             }
             elseif ($event['source']['type'] == 'group') {
                     $response = $bot->leaveGroup($event['source']['groupId']);
-            }
-            return $response->getHTTPStatus() . ' ' . $response->getRawBody();
+                    return $response->getHTTPStatus() . ' ' . $response->getRawBody();
+            }            
         }
         
         elseif ($event['type'] == 'join'){
