@@ -198,7 +198,7 @@ End Of Dirty Words Database
 			}
 		}
         
-        elseif ($event['message']['text']=='bye dwabot') {
+        elseif (stripos($event['message']['text'], "bye dwabot") !== false) {
             if ($event['source']['type'] == 'room') {
                     $response = $bot->leaveRoom($event['source']['roomId']);
             }
