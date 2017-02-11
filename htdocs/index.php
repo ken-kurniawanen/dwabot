@@ -16,11 +16,11 @@ $app = new Slim\App($configs);
 
 /* ROUTES */
 $app->get('/', function ($request, $response) {
-	return "Dirty Word Alert Bot";
+	return "Lanjutkan!";
 });
 
-$app->post('/', function ($request, $response){
-    
+$app->post('/', function ($request, $response)
+{
 	// get request body and line signature header
 	$body 	   = file_get_contents('php://input');
 	$signature = $_SERVER['HTTP_X_LINE_SIGNATURE'];
@@ -184,40 +184,32 @@ End Of Dirty Words Database
 	$data = json_decode($body, true);
     
    
-	foreach ($data['events'] as $event){
-        
-		if ($event['type'] == 'message'){   
+	foreach ($data['events'] as $event)
+	{
+		if ($event['type'] == 'message')
+		{   
             
-			if($event['message']['type'] == 'text'){
-                
-                foreach ($dirtyWords as $dirtyWord) {
-                    if (preg_match($dirtyWord, $event['message']['text'])) {
-                        $response = $bot->replyText($event['replyToken'], "Astaghfirullahaladzim, jangan berkata kotor :(");
-                    }
-                    
-                    if (pregmatch('/\bbye dwabot\b/i', $event['message']['text'])) {
-                        if ($event['source']['type'] == 'room') {
-                            $response = $bot->leaveRoom($event['source']['roomId']);
-                        }
-                        if ($event['source']['type'] == 'group') {
-                            $response = $bot->leaveRoom($event['source']['groupId']);
-                        }
-                        
-                    }
-                
+			if($event['message']['type'] == 'text')
+			{    
+            foreach ($dirtyWords as $dirtyWord) {
+                if (preg_match($dirtyWord, $event['message']['text'])) {
+                    $result = $bot->replyText($event['replyToken'], "Astaghfirullahaladzim, jangan berkata kotor :(");
                 }
-                                
-				return $response->getHTTPStatus() . ' ' . $response->getRawBody();
+                
+                //				$result = $bot->replyText($event['replyToken'], $event['message']['text']);
+
+                    }
+                
+                        
+                
+				//$result = $bot->replyText($event['replyToken'], $event['message']['text']);
+
+                //$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("Tolong jangan gunakan kata kasar");
+                //$pm = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+				
+				return $result->getHTTPStatus() . ' ' . $result->getRawBody();
 			}
-            
 		}
-        
-        if ($event['type'] == 'join')
-        {
-            $response = $bot->replyText($event['replyToken'], "Thanks for inviting me, i will alert your dirty friend");
-            
-            return $response->getHTTPStatus() . ' ' . $response->getRawBody();    
-        }
 	}
 
 });
