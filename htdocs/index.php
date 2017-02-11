@@ -195,11 +195,11 @@ End Of Dirty Words Database
                         $response = $bot->replyText($event['replyToken'], "Astaghfirullahaladzim, jangan berkata kotor :(");
                     }
                     
-                    elseif (pregmatch('/\bbye dwabot\b/i', $event['message']['text'])) {
+                    if (pregmatch('/\bbye dwabot\b/i', $event['message']['text'])) {
                         if ($event['source']['type'] == 'room') {
                             $response = $bot->leaveRoom($event['source']['roomId']);
                         }
-                        elseif ($event['source']['type'] == 'group') {
+                        if ($event['source']['type'] == 'group') {
                             $response = $bot->leaveRoom($event['source']['groupId']);
                         }
                         
@@ -212,7 +212,7 @@ End Of Dirty Words Database
             
 		}
         
-        elseif ($event['type'] == 'join')
+        if ($event['type'] == 'join')
         {
             $response = $bot->replyText($event['replyToken'], "Thanks for inviting me, i will alert your dirty friend");
             
