@@ -4,4 +4,4 @@
 #Just it is what it is
 
 
-TODO : Refactor, Custom Words, etc
+TODO : Refactor, put dirty word to mysql, Custom Words for group/multichat, custom alert for group/multichat, etc
