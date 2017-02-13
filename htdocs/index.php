@@ -2,7 +2,7 @@
 
 /*Loading Required Files*/
 require __DIR__ . '/../lib/vendor/autoload.php';
-require "config.php";
+require_once "config.php";
 
 /* Boot Up Apps*/
 use \LINE\LINEBot\SignatureValidator as SignatureValidator;
