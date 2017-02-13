@@ -76,6 +76,10 @@ class Response
 				*via personal
 
 				--DWABot v0.2-alpha--
+				======= K L M =======
+				Kurniawan Eka Nugraha
+				Lantang Satriatama
+				Muhammad Muhlas Abror
 				";
 
 				$response = $this->bot->replyText($event['replyToken'], $text);
