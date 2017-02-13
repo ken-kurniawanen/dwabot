@@ -40,7 +40,6 @@ $app = new Slim\App($configs);
 */
 $app->get('/', function ($request, $response) {
 
-
     $table_dirtyWords = $dbo->prepare("SELECT * FROM words");
     if ($table_dirtyWords -> execute()){
         return print_r($table_dirtyWords->fetch());
@@ -72,7 +71,7 @@ $app->post('/', function ($request, $response) {
 	$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
     
     
-    //user
+    /* User Profile */
     $ehe = $bot->getProfile('<userId>');
     $profile = json_decode($ehe, true);
     $dp = $profile['displayName'];
