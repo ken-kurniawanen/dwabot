@@ -11,7 +11,7 @@ $password   = "jokem123";
 
 try {
 
-    $table = new PDO('mysql:host='.$hostname.';dbname='.$database, $username, $password);
+    $dbo = new PDO('mysql:host='.$hostname.';dbname='.$database, $username, $password);
 } catch (PDOException $e) {
 
     $msg = $e->getMessage();
@@ -40,7 +40,8 @@ $app = new Slim\App($configs);
 */
 $app->get('/', function ($request, $response) {
 
-    $table_dirtyWords = $table->prepare("SELECT * FROM words");
+
+    $table_dirtyWords = $dbo->prepare("SELECT * FROM words");
     if ($table_dirtyWords -> execute()){
         return print_r($table_dirtyWords->fetch());
     }
