@@ -131,7 +131,7 @@ Have an idea for future DWABot feature? please click 'Suggest Feature'
             
 			if($event['message']['type'] == 'text'){
                 
-                foreach ($data_dirtyWords as $dirtyWord) {
+                foreach ($dirtyWords as $dirtyWord) {
                     if (preg_match($dirtyWord, $event['message']['text'])) {
                         $response = $bot->replyText($event['replyToken'], "Astaghfirullahaladzim, jangan berkata kotor :(");
                     }
