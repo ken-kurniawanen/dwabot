@@ -33,7 +33,7 @@ $app->get('/', function ($request, $response) {
 
     foreach ($dataTable_dirtyWords as $key => $value) {
         
-        array_push($data_dirtyWords, $value);
+        array_push($data_dirtyWords, $value['word']);
     }
 
     print_r($data_dirtyWords);
