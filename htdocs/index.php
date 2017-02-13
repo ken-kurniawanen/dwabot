@@ -30,6 +30,7 @@ $app->get('/', function ($request, $response) {
         $dataTable_dirtyWords = $table_dirtyWords->fetchAll();
     }
 
+    print_r($dataTable_dirtyWords);
     $data_dirtyWords = array();
 
     foreach ($dataTable_dirtyWords->word as $key => $value) {
