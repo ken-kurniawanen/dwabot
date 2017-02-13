@@ -17,29 +17,28 @@ $configs =  [
 $app = new Slim\App($configs);
 
 
+/* Database Configuration */
+$hostname   = "localhost";
+$database   = "kotor"; 
+$username   = "kotor";    
+$password   = "jokem123";   
+
+try {
+
+    $dbo = new PDO('mysql:host='.$hostname.';dbname='.$database, $username, $password);
+    print_r($dbo);
+} catch (PDOException $e) {
+
+    $msg = $e->getMessage();
+    echo $msg;
+    die();
+}
 
 /*
 | Routes
 | Define Routes Here
 */
 $app->get('/', function ($request, $response) {
-
-    /* Database Configuration */
-    $hostname   = "localhost";
-    $database   = "kotor"; 
-    $username   = "kotor";    
-    $password   = "jokem123";   
-
-    try {
-
-        $dbo = new PDO('mysql:host='.$hostname.';dbname='.$database, $username, $password);
-        print_r($dbo);
-    } catch (PDOException $e) {
-
-        $msg = $e->getMessage();
-        echo $msg;
-        die();
-    }
 
     $table_dirtyWords = $dbo->prepare("SELECT * FROM words");
     if ($table_dirtyWords -> execute()){
