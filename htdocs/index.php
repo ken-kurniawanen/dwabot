@@ -22,14 +22,23 @@ $app = new Slim\App($configs);
 */
 $app->get('/', function ($request, $response) {
 
-    require_once "config.php";
+    require_once "database.php";
 
     $table_dirtyWords = $dbo->prepare("SELECT * FROM words");
     if ($table_dirtyWords -> execute()){
-        return print_r($table_dirtyWords->fetch());
+        
+        $dataTable_dirtyWords = $table_dirtyWords->fetchAll();
     }
 
-	
+    $data_dirtyWords = array();
+
+    foreach ($dataTable_dirtyWords['word'] as $key => $value) {
+        
+        array_push($data_dirtyWords, $value);
+    }
+
+    print_r($data_dirtyWords);
+
 });
 
 $app->post('/', function ($request, $response) {
@@ -60,10 +69,9 @@ $app->post('/', function ($request, $response) {
     $profile = json_decode($ehe, true);
     $dp = $profile['displayName'];
                         
-/*
-	Start Dirty Word Database
-*/
-
+    /*
+    	Start Dirty Word Database
+    */
 $data = array(
 'anjeng',
 'ass',
