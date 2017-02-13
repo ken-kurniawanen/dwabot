@@ -22,21 +22,6 @@ $app = new Slim\App($configs);
 */
 $app->get('/', function ($request, $response) {
 
-    require_once "database.php";
-
-    $table_dirtyWords = $dbo->prepare("SELECT * FROM words");
-    if ($table_dirtyWords -> execute()){
-        
-        $dataTable_dirtyWords = $table_dirtyWords->fetchAll();
-    }
-    $data_dirtyWords = array();
-
-    foreach ($dataTable_dirtyWords as $key => $value) {
-        
-        array_push($data_dirtyWords, $value['word']);
-    }
-
-    print_r($data_dirtyWords);
 
 });
 
@@ -71,131 +56,43 @@ $app->post('/', function ($request, $response) {
     /*
     	Start Dirty Word Database
     */
-$data = array(
-'anjeng',
-'ass',
-'asshole',
-'asshat',
-'asu',
-'asuw',
-'asyu',
-'afu',
-'bajingan',
-'bangsat',
-'bastard',
-'bewb',
-'bewbs',
-'bitch',
-'bolot',
-'boob',
-'boobs',
-'brengsek',
-'blyat',
-'cuk',
-'cuki',
-'cukimay',
-'cunt',
-'cocote',
-'cocotmu',
-'cok',
-'cyka',
-'dema',
-'dick',
-'dickhead',
-'dobol',
-'fag',
-'faggot',
-'fuck',
-'fvck',    
-'fucked',
-'fucker',
-'fuckhead',
-'fucking',
-'gago',
-'goblok',
-'goblog',
-'gobloq',
-'geblek',
-'itil',
-'jamput',
-'jancok',
-'jancuk',
-'jembut',
-'jerk',
-'kampang',
-'kampret',
-'kentu',
-'kentot',
-'kimcil',
-'kimak',
-'kontol',
-'kunyuk',
-'lahor',
-'meki',
-'memek',
-'motherfucker',
-'motherfuckers',
-'ndes',
-'ndez',
-'ngehe',
-'ngentot',
-'ngewe',
-'njing',
-'nying',
-'pantek',
-'pecun',
-'peler',
-'peli',
-'peju',
-'pejuh',
-'perek',
-'puki',
-'pukimay',
-'puta',
-'putang',
-'pussy',
-'sange',
-'shit',
-'shithead',
-'shithole',
-'shitty',
-'tae',
-'taek',
-'tai',
-'taik',
-'tahi',
-'tempik',
-'tangina',
-'titit',
-'titid',
-'tits',
-'toket',
-'tolol',
-'udik',
- 	);
+
+    require_once "database.php";
+
+    $table_dirtyWords = $dbo->prepare("SELECT * FROM words");
+    if ($table_dirtyWords -> execute()){
+        
+        $dataTable_dirtyWords = $table_dirtyWords->fetchAll();
+    }
+    $data_dirtyWords = array();
+
+    foreach ($dataTable_dirtyWords as $key => $value) {
+        
+        array_push($data_dirtyWords, $value['word']);
+    }
  	
- $f_separator = "/\b";
- $m_separator = "+(|[^a-z])*";
- $e_separator = "+\b/i";
- $dirtyWords = array();
- 	
- foreach ($data as $key => $value){
- 	
- 	$word = "";
- 	$word = $word . $f_separator;
- 	
- 	for ($i = 0; $i != strlen($value); $i++){
- 		
- 		$word = $word . $value[$i];
- 		if ($i+1 != strlen($value)){
- 			
- 			$word = $word . $m_separator;
- 		}
- 	}
- 	
- 	$word = $word . $e_separator;
- 	array_push($dirtyWords, $word);
- }
+    $f_separator = "/\b";
+    $m_separator = "+(|[^a-z])*";
+    $e_separator = "+\b/i";
+    $dirtyWords = array();
+    	
+    foreach ($data_dirtyWords as $key => $value){
+    	
+    	$word = "";
+    	$word = $word . $f_separator;
+    	
+    	for ($i = 0; $i != strlen($value); $i++){
+    		
+    		$word = $word . $value[$i];
+    		if ($i+1 != strlen($value)){
+    			
+    			$word = $word . $m_separator;
+    		}
+    	}
+    	
+    	$word = $word . $e_separator;
+    	array_push($dirtyWords, $word);
+    }
 
  /*
 End Of Dirty Words Database
@@ -234,7 +131,7 @@ Have an idea for future DWABot feature? please click 'Suggest Feature'
             
 			if($event['message']['type'] == 'text'){
                 
-                foreach ($dirtyWords as $dirtyWord) {
+                foreach ($data_dirtyWords as $dirtyWord) {
                     if (preg_match($dirtyWord, $event['message']['text'])) {
                         $response = $bot->replyText($event['replyToken'], "Astaghfirullahaladzim, jangan berkata kotor :(");
                     }
