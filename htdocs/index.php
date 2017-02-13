@@ -40,7 +40,7 @@ $app = new Slim\App($configs);
 */
 $app->get('/', function ($request, $response) {
 
-    $table_dirtyWords = $table -> prepare("SELECT * FROM words");
+    $table_dirtyWords = $table->prepare("SELECT * FROM words");
     if ($table_dirtyWords -> execute()){
         return print_r($table_dirtyWords->fetch());
     }
