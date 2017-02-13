@@ -29,11 +29,9 @@ $app->get('/', function ($request, $response) {
         
         $dataTable_dirtyWords = $table_dirtyWords->fetchAll();
     }
-
-    print_r($dataTable_dirtyWords);
     $data_dirtyWords = array();
 
-    foreach ($dataTable_dirtyWords->word as $key => $value) {
+    foreach ($dataTable_dirtyWords as $key => $value) {
         
         array_push($data_dirtyWords, $value);
     }
