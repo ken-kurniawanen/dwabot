@@ -6,9 +6,11 @@ class Response
 {
 
 	public $bot;
-	public $request = file_get_contents('php://input');
+	public $request;
 	
 	function __construct(){
+
+		$this->request = file_get_contents('php://input');
 
 		/* Get Header Data */
 		$signature = $_SERVER['HTTP_X_LINE_SIGNATURE'];

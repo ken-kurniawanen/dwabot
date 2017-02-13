@@ -4,8 +4,6 @@
 require __DIR__ . '/../lib/vendor/autoload.php';
 require "response.php";
 
-use Response;
-
 /* Boot Up Apps*/
 
 $dotenv = new Dotenv\Dotenv(__DIR__);
