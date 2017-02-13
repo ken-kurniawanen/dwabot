@@ -1,43 +1,57 @@
 <?php
-//tesgit
-require __DIR__ . '/../lib/vendor/autoload.php';
 
+/*Loading Required Files*/
+require __DIR__ . '/../lib/vendor/autoload.php';
+require "config.php";
+
+/* Boot Up Apps*/
 use \LINE\LINEBot\SignatureValidator as SignatureValidator;
 
-// load config
 $dotenv = new Dotenv\Dotenv(__DIR__);
 $dotenv->load();
 
-// initiate app
 $configs =  [
-	'settings' => ['displayErrorDetails' => true],
-];
+	'settings' => [
+        'displayErrorDetails' => true
+        ]
+    ];
 $app = new Slim\App($configs);
 
-/* ROUTES */
+
+
+/*
+| Routes
+| Define Routes Here
+*/
 $app->get('/', function ($request, $response) {
-	return "Lanjutkan!";
+
+    $table_dirtyWords = $table -> prepare("SELECT * FROM words");
+    if ($table_dirtyWords -> execute()){
+        return print_r($table_dirtyWords->fetch());
+    }
+
+	
 });
 
 $app->post('/', function ($request, $response) {
-	// get request body and line signature header
+
+	/* Get Header Data */
 	$body 	   = file_get_contents('php://input');
 	$signature = $_SERVER['HTTP_X_LINE_SIGNATURE'];
 
-	// log body and signature
+	/* Logging to Console*/
 	file_put_contents('php://stderr', 'Body: '.$body);
 
-	// is LINE_SIGNATURE exists in request header?
+	/* Validation */
 	if (empty($signature)){
 		return $response->withStatus(400, 'Signature not set');
 	}
-
-	// is this request comes from LINE?
+	
 	if($_ENV['PASS_SIGNATURE'] == false && ! SignatureValidator::validateSignature($body, $_ENV['CHANNEL_SECRET'], $signature)){
 		return $response->withStatus(400, 'Invalid signature');
 	}
     
-	// init bot
+	/* Initialize */
 	$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
 	$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
     
@@ -50,6 +64,7 @@ $app->post('/', function ($request, $response) {
 /*
 	Start Dirty Word Database
 */
+
 $data = array(
 'anjeng',
 'ass',
@@ -179,6 +194,7 @@ $data = array(
  /*
 End Of Dirty Words Database
  */  
+
     //get event webhook
 	$data = json_decode($body, true);
     
