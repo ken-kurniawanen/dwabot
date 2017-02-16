@@ -158,6 +158,7 @@ class Response
 	public function botEventSourceIsRoom($source){
 		
 		if ($source['source']['type'] == "room"){
+
 			return true;
 		}
 	}
@@ -535,6 +536,11 @@ class Response
 	public function main(){
 
 		foreach ($this->botEventsRequestHandler() as $source) {
+
+			if ($this->botReceiveText($source) == "halo"){
+
+				$this->botSendText($source, "halo juga");
+			}
 
 			if ($this->botEventSourceIsUser($source)){
 
