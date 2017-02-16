@@ -333,7 +333,7 @@ class Response
 
 	public function botSendImagemap($source, $baseUrl, $altText, $baseSizeBuilder, array $imagemapActionBuilders){
 
-		$input = new ImagemapMessageBuilder($baseUrl, $altText, $baseSizeBuilder, array $imagemapActionBuilders);
+		$input = new ImagemapMessageBuilder($baseUrl, $altText, $baseSizeBuilder, $imagemapActionBuilders);
 		$response = $bot->replyMessage($this->botEventReplyToken($source), $input);
 		
 		if ($response->isSucceeded()){
