@@ -2,6 +2,7 @@
 require_once "database.php";
 
 use \LINE\LINEBot\SignatureValidator as SignatureValidator;
+use \LINE\LINEBot\MessageBuilder\ImagemapMessageBuilder as ImagemapMessageBuilder;
 
 class Response
 {
@@ -332,7 +333,7 @@ class Response
 
 	public function botSendImagemap($source, $baseUrl, $altText, $baseSizeBuilder, array $imagemapActionBuilders){
 
-		$input = new \LINE\LINEBot\MessageBuilder\ImagemapMessageBuilder($baseUrl, $altText, $baseSizeBuilder, array $imagemapActionBuilders);
+		$input = new ImagemapMessageBuilder($baseUrl, $altText, $baseSizeBuilder, array $imagemapActionBuilders);
 		$response = $bot->replyMessage($this->botEventReplyToken($source), $input);
 		
 		if ($response->isSucceeded()){
