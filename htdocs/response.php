@@ -34,12 +34,6 @@ class Response
 		$this->bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
 	}
 
-	public function requestHandler($type){
-
-		$requestHandler = json_decode($this->getRequest, true);
-		return $requestHandler[$type];
-	}
-
 /* Table Getter From Database*/
 	public function tableCountGetter($table){
 
@@ -92,8 +86,9 @@ class Response
 
 /* Bot Event Request Handler */
 	public function botEventsRequestHandler(){
-		
-		$this->requestHandler('events');
+
+		$requestHandler = json_decode($this->getRequest, true);
+		return $requestHandler['events'];
 	}
 
 /* Bot Usability | Every method can only be used trough foreach */
