@@ -1,6 +1,6 @@
 <?php
 
-/*Loading Required Files*/
+/* Load Required Files */
 require __DIR__ . '/../lib/vendor/autoload.php';
 require "response.php";
 
@@ -16,20 +16,19 @@ $configs =  [
     ];
 $app = new Slim\App($configs);
 
-/*
-| Routes
-| Define Routes Here
-*/
+
+
+/* Routes */
 $app->get('/', function ($request, $response) {
 
-    echo "Hello World";
+    echo "KLM Project";
 
 });
 
 $app->post('/', function ($request, $response) {
 
     $response = new Response;
-    $handler = $response->eventsHandler();
+    $handler = $response->main();
 
     return $handler;
 });
