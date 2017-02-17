@@ -212,8 +212,10 @@ class Response
 	/*Send Content*/
 	public function botSendText($source, $text){
 
-		$input = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
-		$response = $bot->replyMessage($this->botEventReplyToken($source), $input);
+		// $input = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
+		// $response = $bot->replyMessage($this->botEventReplyToken($source), $input);
+
+		$response = $bot->replyText($this->botEventReplyToken($source), 'hello!');
 		
 		if ($response->isSucceeded()){
 			
