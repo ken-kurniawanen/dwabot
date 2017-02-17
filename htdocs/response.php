@@ -483,14 +483,12 @@ class Response
 
 		foreach ($this->botEventsRequestHandler() as $lala) {
 
+			$myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
 			$log = $response->getHTTPStatus() . ' ' . $response->getRawBody();
-			$json_source = json_encode($source);
-			$alt = date() . "-------";
+			fwrite($myfile, $log);
 
-			$log = fopen("log.txt", "w") or die("can't write");
-			$txt = "$alt \n $json_source \n ----------";
-			fwrite($log, $txt);
-			fclose($log);
+			fwrite($myfile, "adasd\n");
+			fclose($myfile);
 
 			if ($this->botEventSourceIsUser($source)){
 
