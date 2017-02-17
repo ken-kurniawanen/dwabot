@@ -7,43 +7,45 @@ class Response
 {
 
 	public $bot;
-	public $getRequest;
-	
+	public $request;
+
 	function __construct(){
 
-		$this->getRequest = file_get_contents('php://input');
+		$this->request = file_get_contents('php://input');
 
 		/* Get Header Data */
 		$signature = $_SERVER['HTTP_X_LINE_SIGNATURE'];
 
 		/* Logging to Console*/
-		file_put_contents('php://stderr', 'Body: '.$this->getRequest);
+		file_put_contents('php://stderr', 'Body: '.$this->request);
 
 		/* Validation */
 		if (empty($signature)){
 			return $response->withStatus(400, 'Signature not set');
 		}
-		
-		if($_ENV['PASS_SIGNATURE'] == false && ! SignatureValidator::validateSignature($this->getRequest, $_ENV['CHANNEL_SECRET'], $signature)){
+
+		if($_ENV['PASS_SIGNATURE'] == false && ! SignatureValidator::validateSignature($this->request, $_ENV['CHANNEL_SECRET'], $signature)){
 			return $response->withStatus(400, 'Invalid signature');
 		}
 
 		/* Initialize bot*/
 		$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
 		$this->bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
+
 	}
 
 /* Bot Event Request Handler */
+
 	public function botEventsRequestHandler(){
 
-		$requestHandler = json_decode($this->getRequest, true);
+		$requestHandler = json_decode($this->request, true);
 		return $requestHandler['events'];
 	}
 
 /* Bot Usability | Every method can only be used trough foreach */
 
 	/*==================================Mandatory==================================*/
-	
+
 	public function botDisplayName($userId = null){
 
 		$getProfile = $this->bot->getProfile();
@@ -54,264 +56,255 @@ class Response
 
 	/*General*/
 
-	public function botEventReplyToken($source){
+	public function botEventReplyToken($event){
 
-		return $source['replyToken'];
+		return $event['replyToken'];
 	}
 
-	public function botEventType($source){
+	public function botEventType($event){
 
-		return $source['type'];		
+		return $event['type'];
 	}
 
-	public function botEventTimestamp($source){
+	public function botEventTimestamp($event){
 
-		return $source['timestamp'];		
+		return $event['timestamp'];
 	}
-
 
 	/*Source*/
 
-	public function botEventSourceType($source){
-		
-		return $source['source']['type'];
+	public function botEventSourceType($event){
+
+		return $event['source']['type'];
 	}
 
-	public function botEventSourceUserId($source){
-	
-		return $source['source']['userId'];
+	public function botEventSourceUserId($event){
+
+		return $event['source']['userId'];
 	}
 
-	public function botEventSourceRoomId($source){
-		
-		return $source['source']['roomId'];
+	public function botEventSourceRoomId($event){
+
+		return $event['source']['roomId'];
 	}
 
-	public function botEventSourceGroupId($source){
-		
-		return $source['source']['groupId'];
+	public function botEventSourceGroupId($event){
+
+		return $event['source']['groupId'];
 	}
 
-	public function botEventSourceIsUser($source){
-		
-		if ($source['source']['type'] == "user"){
+	public function botEventSourceIsUser($event){
+
+		if ($event['source']['type'] == "user"){
 			return true;
 		}
 	}
 
-	public function botEventSourceIsRoom($source){
-		
-		if ($source['source']['type'] == "room"){
+	public function botEventSourceIsRoom($event){
+
+		if ($event['source']['type'] == "room"){
 
 			return true;
 		}
 	}
 
-	public function botEventSourceIsGroup($source){
-		
-		if ($source['source']['type'] == "group"){
+	public function botEventSourceIsGroup($event){
+
+		if ($event['source']['type'] == "group"){
 			return true;
 		}
 	}
-
 
 	/*Message*/
 
-	public function botEventMessageId($source){
-		
+	public function botEventMessageId($event){
+
 		// text, image, video, audio, location, sticker
-		return $source['message']['id'];
+		return $event['message']['id'];
 	}
 
-	public function botEventMessageType($source){
-		
+	public function botEventMessageType($event){
+
 		// text, image, video, audio, location, sticker
-		return $source['message']['type'];
+		return $event['message']['type'];
 	}
 
-	public function botEventMessageText($source){
-		
+	public function botEventMessageText($event){
+
 		// text
-		return $source['message']['text'];
+		return $event['message']['text'];
 	}
 
-	public function botEventMessageTitle($source){
-		
+	public function botEventMessageTitle($event){
+
 		// location
-		return $source['message']['title'];
+		return $event['message']['title'];
 	}
 
-	public function botEventMessageAddress($source){
-		
+	public function botEventMessageAddress($event){
+
 		// location
-		return $source['message']['address'];
+		return $event['message']['address'];
 	}
 
-	public function botEventMessageLatitude($source){
-		
+	public function botEventMessageLatitude($event){
+
 		// location
-		return $source['message']['latitude'];
+		return $event['message']['latitude'];
 	}
 
-	public function botEventMessageLongitude($source){
-		
+	public function botEventMessageLongitude($event){
+
 		// location
-		return $source['message']['longitude'];
+		return $event['message']['longitude'];
 	}
 
-	public function botEventMessagePackadeId($source){
-		
+	public function botEventMessagePackadeId($event){
+
 		// sticker
-		return $source['message']['packageId'];
+		return $event['message']['packageId'];
 	}
 
-	public function botEventMessageStickerId($source){
-		
+	public function botEventMessageStickerId($event){
+
 		// sticker
-		return $source['message']['stickerId'];
+		return $event['message']['stickerId'];
 	}
-
 
 	/*Postback*/
 
-	public function botEventPostbackData($source){
-		
-		return $source['postback']['data'];
-	}
+	public function botEventPostbackData($event){
 
+		return $event['postback']['data'];
+	}
 
 	/*Beacon*/
 
-	public function botEventBeaconkHwid($source){
-		
-		return $source['beacon']['hwid'];
+	public function botEventBeaconkHwid($event){
+
+		return $event['beacon']['hwid'];
 	}
 
-	public function botEventBeaconType($source){
-		
-		return $source['beacon']['type'];
+	public function botEventBeaconType($event){
+
+		return $event['beacon']['type'];
 	}
 
 	/*================================================================*/
 
-	
 	/* Bot Action */
 
 	/*Leave*/
-	public function botEventLeaveRoom($source){
+	public function botEventLeaveRoom($event){
 
-		return $this->bot->leaveRoom($this->botEventSourceRoomId($source));
+		return $this->bot->leaveRoom($this->botEventSourceRoomId($event));
 	}
 
-	public function botEventLeaveGroup($source){
+	public function botEventLeaveGroup($event){
 
-		return $this->bot->leaveRoom($this->botEventSourceGroupId($source));
+		return $this->bot->leaveRoom($this->botEventSourceGroupId($event));
 	}
-
 
 	/*Send Content*/
-	public function botSendText($source, $text){
+	public function botSendText($event, $text){
 
-		// $input = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
-		// $response = $bot->replyMessage($this->botEventReplyToken($source), $input);
+		$input = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
+		$response = $bot->replyMessage($this->botEventReplyToken($event), $input);
 
-		$response = $bot->replyText($this->botEventReplyToken($source), 'hello!');
-		
 		if ($response->isSucceeded()){
-			
+
 			return true;
 		}
 	}
 
-	public function botSendImage($source, $original, $preview){
+	public function botSendImage($event, $original, $preview){
 
 		$input = new \LINE\LINEBot\MessageBuilder\ImageMessageBuilder($original, $preview);
-		$response = $bot->replyMessage($this->botEventReplyToken($source), $input);
-		
+		$response = $bot->replyMessage($this->botEventReplyToken($event), $input);
+
 		if ($response->isSucceeded()){
-			
+
 			return true;
 		}
 	}
 
-	public function botSendVideo($source, $original, $preview){
+	public function botSendVideo($event, $original, $preview){
 
 		$input = new \LINE\LINEBot\MessageBuilder\VideoMessageBuilder($original, $preview);
-		$response = $bot->replyMessage($this->botEventReplyToken($source), $input);
-		
+		$response = $bot->replyMessage($this->botEventReplyToken($event), $input);
+
 		if ($response->isSucceeded()){
-			
+
 			return true;
 		}
 	}
 
-	public function botSendAudio($source, $content, $duration){
+	public function botSendAudio($event, $content, $duration){
 
 		$input = new \LINE\LINEBot\MessageBuilder\AudioMessageBuilder($content, $duration);
-		$response = $bot->replyMessage($this->botEventReplyToken($source), $input);
-		
+		$response = $bot->replyMessage($this->botEventReplyToken($event), $input);
+
 		if ($response->isSucceeded()){
-			
+
 			return true;
 		}
 	}
 
-	public function botSendLocation($source, $title, $address, $latitude, $longitude){
+	public function botSendLocation($event, $title, $address, $latitude, $longitude){
 
 		$input = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder($title, $address, $latitude, $longitude);
-		$response = $bot->replyMessage($this->botEventReplyToken($source), $input);
-		
+		$response = $bot->replyMessage($this->botEventReplyToken($event), $input);
+
 		if ($response->isSucceeded()){
-			
+
 			return true;
 		}
 	}
 
-	public function botSendSticker($source, $packageId, $stickerId){
+	public function botSendSticker($event, $packageId, $stickerId){
 
 		$input = new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder($packageId, $stickerId);
-		$response = $bot->replyMessage($this->botEventReplyToken($source), $input);
-		
+		$response = $bot->replyMessage($this->botEventReplyToken($event), $input);
+
 		if ($response->isSucceeded()){
-			
+
 			return true;
 		}
 	}
 
-	public function botSendImagemap($source, $baseUrl, $altText, $baseSizeBuilder, array $imagemapActionBuilders){
+	public function botSendImagemap($event, $baseUrl, $altText, $baseSizeBuilder, array $imagemapActionBuilders){
 
 		$input = new ImagemapMessageBuilder($baseUrl, $altText, $baseSizeBuilder, $imagemapActionBuilders);
-		$response = $bot->replyMessage($this->botEventReplyToken($source), $input);
-		
+		$response = $bot->replyMessage($this->botEventReplyToken($event), $input);
+
 		if ($response->isSucceeded()){
-			
+
 			return true;
 		}
 	}
 
-	public function botSendTemplate($source, $altText, $templateBuilder){
+	public function botSendTemplate($event, $altText, $templateBuilder){
 
 		$input = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder($altText, $templateBuilder);
-		$response = $bot->replyMessage($this->botEventReplyToken($source), $input);
-		
+		$response = $bot->replyMessage($this->botEventReplyToken($event), $input);
+
 		if ($response->isSucceeded()){
-			
+
 			return true;
 		}
 	}
 
-
 	/*Receive Content*/
-	public function botReceiveText($source){
+	public function botReceiveText($event){
 
-		return $this->botEventMessageText($source);
+		return $this->botEventMessageText($event);
 	}
 
-	public function botReceiveImage($source){
+	public function botReceiveImage($event){
 
-		if ($this->botEventMessageType($source) == 'image'){
+		if ($this->botEventMessageType($event) == 'image'){
 
-			$response = $this->bot->getMessageContent($this->botEventMessageId($source));
+			$response = $this->bot->getMessageContent($this->botEventMessageId($event));
 
 			if ($response->isSucceeded()) {
 
@@ -329,11 +322,11 @@ class Response
 		}
 	}
 
-	public function botReceiveAudio($source){
+	public function botReceiveAudio($event){
 
-		if ($this->botEventMessageType($source) == 'audio'){
+		if ($this->botEventMessageType($event) == 'audio'){
 
-			$response = $this->bot->getMessageContent($this->botEventMessageId($source));
+			$response = $this->bot->getMessageContent($this->botEventMessageId($event));
 
 			if ($response->isSucceeded()) {
 
@@ -351,11 +344,11 @@ class Response
 		}
 	}
 
-	public function botReceiveVideo($source){
+	public function botReceiveVideo($event){
 
-		if ($this->botEventMessageType($source) == 'video'){
+		if ($this->botEventMessageType($event) == 'video'){
 
-			$response = $this->bot->getMessageContent($this->botEventMessageId($source));
+			$response = $this->bot->getMessageContent($this->botEventMessageId($event));
 
 			if ($response->isSucceeded()) {
 
@@ -373,9 +366,9 @@ class Response
 		}
 	}
 
-	public function botReceiveSticker($source){
+	public function botReceiveSticker($event){
 
-		if ($this->botEventMessageType($source) == 'sticker'){
+		if ($this->botEventMessageType($event) == 'sticker'){
 
 			$sticker = array();
 			$packageId = array(
@@ -385,8 +378,8 @@ class Response
 				'stickerId'
 				);
 
-			array_push($packageId['packageId'], $this->botEventMessagePackadeId($source));
-			array_push($stickerId['stickerId'], $this->botEventMessageStickerId($source));
+			array_push($packageId['packageId'], $this->botEventMessagePackadeId($event));
+			array_push($stickerId['stickerId'], $this->botEventMessageStickerId($event));
 
 			array_push($sticker, $packageId);
 			array_push($sticker, $stickerId);
@@ -395,9 +388,9 @@ class Response
 		}
 	}
 
-	public function botReceiveLocation($source){
+	public function botReceiveLocation($event){
 
-		if ($this->botEventMessageType($source) == 'location'){
+		if ($this->botEventMessageType($event) == 'location'){
 
 			$location = array();
 			$title = array(
@@ -412,11 +405,11 @@ class Response
 			$longitude = array(
 				'longitude'
 				);
-			
-			array_push($title['title'], $this->botEventMessageTitle($source));
-			array_push($address['address'], $this->botEventMessageAddress($source));
-			array_push($latitude['latitude'], $this->botEventMessageLatitude($source));
-			array_push($longitude['longitude'], $this->botEventMessageLongitude($source));
+
+			array_push($title['title'], $this->botEventMessageTitle($event));
+			array_push($address['address'], $this->botEventMessageAddress($event));
+			array_push($latitude['latitude'], $this->botEventMessageLatitude($event));
+			array_push($longitude['longitude'], $this->botEventMessageLongitude($event));
 
 			array_push($location, $title);
 			array_push($location, $address);
@@ -427,79 +420,71 @@ class Response
 		}
 	}
 
-
 	/*Is Receive Content*/
-	public function botIsReceiveText($source){
+	public function botIsReceiveText($event){
 
-		if ($this->botEventMessageType($source) == 'text'){
-
-			return true;
-		}
-	}
-
-	public function botIsReceiveImage($source){
-
-		if ($this->botEventMessageType($source) == 'image'){
+		if ($this->botEventMessageType($event) == 'text'){
 
 			return true;
 		}
 	}
 
-	public function botIsReceiveAudio($source){
+	public function botIsReceiveImage($event){
 
-		if ($this->botEventMessageType($source) == 'audio'){
-
-			return true;
-		}
-	}
-
-	public function botIsReceiveVideo($source){
-
-		if ($this->botEventMessageType($source) == 'video'){
+		if ($this->botEventMessageType($event) == 'image'){
 
 			return true;
 		}
 	}
 
-	public function botIsReceiveSticker($source){
+	public function botIsReceiveAudio($event){
 
-		if ($this->botEventMessageType($source) == 'sticker'){
-
-			return true;
-		}
-	}
-
-	public function botIsReceiveLocation($source){
-
-		if ($this->botEventMessageType($source) == 'location'){
+		if ($this->botEventMessageType($event) == 'audio'){
 
 			return true;
 		}
 	}
 
+	public function botIsReceiveVideo($event){
+
+		if ($this->botEventMessageType($event) == 'video'){
+
+			return true;
+		}
+	}
+
+	public function botIsReceiveSticker($event){
+
+		if ($this->botEventMessageType($event) == 'sticker'){
+
+			return true;
+		}
+	}
+
+	public function botIsReceiveLocation($event){
+
+		if ($this->botEventMessageType($event) == 'location'){
+
+			return true;
+		}
+	}
 
 	/*Main*/
 	public function mainBot(){
 
-		foreach ($this->botEventsRequestHandler() as $lala) {
+		foreach ($this->botEventsRequestHandler() as $event) {
 
-			$myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
-			$log = $response->getHTTPStatus() . ' ' . $response->getRawBody();
-			fwrite($myfile, $log);
+			if ($this->botEventSourceIsUser($event)){
 
-			fwrite($myfile, "adasd\n");
-			fclose($myfile);
+				if ($this->botIsReceiveText($event)){
 
-			if ($this->botEventSourceIsUser($source)){
+					if ($this->botReceiveText($event) == "halo"){
 
-				if ($this->botIsReceiveText($source)){
-
-					if ($this->botReceiveText($source) == "halo"){
-
-						$this->botSendText($source, "halo juga");
+						$this->botSendText($event, "halo juga");
 					}
 				}
 			}
+
 		}
 	}
 }
