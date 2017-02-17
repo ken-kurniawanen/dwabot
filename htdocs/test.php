@@ -1,29 +1,9 @@
 <?php
 
-  $myfile = fopen("data.json", "r") or die("Unable to open file!");
-  $json = fgets($myfile);
-  fclose($myfile);
-
-  function botEventsRequestHandler(){
-
-    $requestHandler = json_decode($json);
-    return $requestHandler['events'];
-  }
-
-  function botEventReplyToken($source){
-
-    return $source['replyToken'];
-  }
-
-  foreach (botEventsRequestHandler() as $source) {
-
-
-    print_r($source);
-    echo "\n \n";
-
-    echo botEventReplyToken($source);
-
-    }
-
-
+$myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
+$txt = "Mickey Mouse\n";
+fwrite($myfile, $txt);
+$txt = "Minnie Mouse\n";
+fwrite($myfile, $txt);
+fclose($myfile);
 ?>
