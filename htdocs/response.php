@@ -2,7 +2,6 @@
 require_once "database.php";
 
 use \LINE\LINEBot\SignatureValidator as SignatureValidator;
-use \LINE\LINEBot\MessageBuilder\ImagemapMessageBuilder as ImagemapMessageBuilder;
 
 class Response
 {
@@ -480,7 +479,7 @@ class Response
 	/*Main*/
 	public function mainBot(){
 
-		foreach ($this->botEventsRequestHandler() as $source) {
+		foreach ($this->botEventsRequestHandler() as $lala) {
 
 			$log = $response->getHTTPStatus() . ' ' . $response->getRawBody();
 			$json_source = json_encode($source);
@@ -499,115 +498,6 @@ class Response
 
 						$this->botSendText($source, "halo juga");
 					}
-				}
-
-				if ($this->botIsReceiveImage($source)){
-
-
-				}
-
-				if ($this->botIsReceiveAudio($source)){
-
-
-				}
-
-				if ($this->botIsReceiveVideo($source)){
-
-
-				}
-
-				if ($this->botIsReceiveLocation($source)){
-
-
-				}
-
-				if ($this->botIsReceiveSticker($source)){
-
-
-				}
-			}
-
-			if ($this->botEventSourceIsRoom($source)){
-
-				if ($this->botIsReceiveText($source)){
-
-					if ($this->botReceiveText($source) == "halo"){
-
-						$this->botSendText($source, "halo juga");
-					}
-				}
-
-				if ($this->botIsReceiveImage($source)){
-
-
-				}
-
-				if ($this->botIsReceiveAudio($source)){
-
-
-				}
-
-				if ($this->botIsReceiveVideo($source)){
-
-
-				}
-
-				if ($this->botIsReceiveLocation($source)){
-
-
-				}
-
-				if ($this->botIsReceiveSticker($source)){
-
-
-				}
-			}
-
-			if ($this->botEventSourceIsGroup($source)){
-
-				if ($this->botIsReceiveText($source)){
-
-					if ($this->botReceiveText($source) == "halo"){
-
-						$this->botSendText($source, "halo juga, grup");
-						$this->botSendText($source, "groupId ini : " . $this->botEventSourceGroupId($source));
-						$this->botSendText($source, "UserId yang bilang 'halo' : " . $this->botEventSourceUserId($source));
-					}
-				}
-
-				if ($this->botIsReceiveImage($source)){
-
-					$url = $this->botReceiveImage();
-
-					$this->botSendText($source, "makasih gambar nya, " . $url);
-				}
-
-				if ($this->botIsReceiveAudio($source)){
-
-					$url = $this->botReceiveAudio();
-
-					$this->botSendText($source, "makasih audio nya, " . $url);
-				}
-
-				if ($this->botIsReceiveVideo($source)){
-
-					$url = $this->botReceiveVideo();
-
-					$this->botSendText($source, "makasih video nya, " . $url);					
-				}
-
-				if ($this->botIsReceiveLocation($source)){
-
-					$url = $this->botReceiveLocation();
-
-					$this->botSendText($source, "makasih location nya, " . json_encode($url));
-				}
-
-				if ($this->botIsReceiveSticker($source)){
-
-					$url = $this->botReceiveSticker();
-
-					$this->botSendText($source, "makasih audio nya, " . json_encode($url));
 				}
 			}
 		}
