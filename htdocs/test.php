@@ -1,5 +1,8 @@
 <?php
-  $json = fopen("data.json");
+
+  $myfile = fopen("data.json", "r") or die("Unable to open file!");
+  $json = fgets($myfile);
+  fclose($myfile);
 
   function botEventsRequestHandler(){
 
