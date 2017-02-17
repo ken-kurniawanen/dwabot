@@ -129,10 +129,10 @@ class Response
 		return $event['message']['type'];
 	}
 
-
 	public function botEventMessageText($event){
-		return $event['message']['text'];
+
 		// text
+		return $event['message']['text'];
 	}
 
 	public function botEventMessageTitle($event){
@@ -294,11 +294,13 @@ class Response
 		}
 	}
 
+
 	/*Receive Content*/
 	public function botReceiveText($event){
 
+		return $this->botEventMessageText($event);
 	}
-	return $this->botEventMessageText($event);
+
 	public function botReceiveImage($event){
 
 		if ($this->botEventMessageType($event) == 'image'){
@@ -419,6 +421,7 @@ class Response
 		}
 	}
 
+
 	/*Is Receive Content*/
 	public function botIsReceiveText($event){
 
@@ -468,23 +471,22 @@ class Response
 		}
 	}
 
+
 	/*Main*/
 	public function mainBot(){
 
 		foreach ($this->botEventsRequestHandler() as $event) {
 
-			$this->botSendText($event, "halo juga");
+			if ($this->botEventSourceIsUser($event)){
 
-			// if ($this->botEventSourceIsUser($event)){
-			//
-			// 	if ($this->botIsReceiveText($event)){
-			//
-			// 		if ($this->botReceiveText($event) == "halo"){
-			//
-			// 			$this->botSendText($event, "halo juga");
-			// 		}
-			// 	}
-			// }
+				if ($this->botIsReceiveText($event)){
+
+					if ($this->botReceiveText($event) == "halo"){
+
+						$this->botSendText($event, "halo juga");
+					}
+				}
+			}
 
 		}
 	}
