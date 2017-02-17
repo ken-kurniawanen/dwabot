@@ -484,6 +484,8 @@ class Response
 					if ($this->botReceiveText($event) == "halo"){
 
 						$this->botSendText($event, "halo juga");
+						
+						return $response->getHTTPStatus() . ' ' . $response->getRawBody();
 					}
 				}
 			}
