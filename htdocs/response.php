@@ -34,56 +34,6 @@ class Response
 		$this->bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
 	}
 
-/* Table Getter From Database*/
-	public function tableCountGetter($table){
-
-		$table = $dbo->prepare("SELECT * FROM :table");
-		$table ->bindParam(":table", $table);
-						
-		if ($table -> execute()){
-
-			$countTable = $table->count();
-			return $countTable;
-		} else {
-
-			return "Error Database";
-		}
-	}
-
-	public function tableDataGetter($table, $index = 0){
-
-		$table = $dbo->prepare("SELECT * FROM :table WHERE id = :id");
-		$table ->bindParam(":table", $table);
-		$table ->bindParam(":id", $index);
-						
-		if ($table -> execute()){
-
-			$dataTable = $table->fetchAll();
-			return $dataTable;
-		} else {
-
-			return "Error Database";
-		}
-	}
-
-/* Response Getter From Database*/
-	public function preferredResponseGetter(){
-
-		$getResponse = $this->tableDataGetter('responses', 1);
-
-		return $getResponse[1]['response'];
-	}
-
-	public function randomResponseGetter(){
-		
-		$countTable = $this->tableCountGetter('responses');
-		$randomIndex = mt_rand(0,$countTable);
-
-		$getResponse = $this->tableDataGetter('responses', $randomIndex);
-
-		return $getResponse[0]['response'];
-	}
-
 /* Bot Event Request Handler */
 	public function botEventsRequestHandler(){
 
@@ -528,14 +478,18 @@ class Response
 
 
 	/*Main*/
-	public function main(){
+	public function mainBot(){
 
 		foreach ($this->botEventsRequestHandler() as $source) {
 
-			if ($this->botReceiveText($source) == "halo"){
+			$log = $response->getHTTPStatus() . ' ' . $response->getRawBody();
+			$json_source = json_encode($source);
+			$alt = date() . "-------";
 
-				$this->botSendText($source, "halo juga");
-			}
+			$log = fopen("log.txt", "w") or die("can't write");
+			$txt = "$alt \n $json_source \n ----------";
+			fwrite($log, $txt);
+			fclose($log);
 
 			if ($this->botEventSourceIsUser($source)){
 

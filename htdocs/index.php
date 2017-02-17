@@ -28,7 +28,7 @@ $app->get('/', function ($request, $response) {
 $app->post('/', function ($request, $response) {
 
     $response = new Response;
-    $handler = $response->main();
+    $handler = $response->mainBot();
 
     return $handler;
 });
